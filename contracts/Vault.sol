@@ -37,14 +37,9 @@ contract Vault {
 
     function withDrawAmount(uint256 amount) public {
         require(userTokenBalance[msg.sender][tokenAddress] >= amount);
-        IERC20(tokenAddress);
         IERC20(tokenAddress).transfer(msg.sender, amount);
         userTokenBalance[msg.sender][tokenAddress] -= amount;
         emit tokenWithdrawalComplete(tokenAddress, amount);
     }
 
-
-
-
-    receive() external payable {}
 }
