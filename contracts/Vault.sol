@@ -30,14 +30,14 @@ contract Vault {
     function withDrawAll() public {
         require(userTokenBalance[msg.sender][tokenAddress] > 0, "User doesnt has funds on this vault");
         uint256 amount = userTokenBalance[msg.sender][tokenAddress];
-        IERC20(tokenAddress).transfer(msg.sender, amount);
+        require(IERC20(tokenAddress).transfer(msg.sender, amount), "the transfer failed");
         userTokenBalance[msg.sender][tokenAddress] = 0;
         emit tokenWithdrawalComplete(tokenAddress, amount);
     }
 
     function withDrawAmount(uint256 amount) public {
         require(userTokenBalance[msg.sender][tokenAddress] >= amount);
-        IERC20(tokenAddress).transfer(msg.sender, amount);
+        require(IERC20(tokenAddress).transfer(msg.sender, amount), "the transfer failed");
         userTokenBalance[msg.sender][tokenAddress] -= amount;
         emit tokenWithdrawalComplete(tokenAddress, amount);
     }
