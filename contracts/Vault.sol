@@ -18,7 +18,7 @@ contract Vault {
 
     function depositToken( uint256 amount) public  {
         require(IERC20(tokenAddress).balanceOf(msg.sender) >= amount, "Your token amount must be greater then you are trying to deposit");
-        require(IERC20(tokenAddress).approve(address(this), amount));
+        require(IERC20(tokenAddress).approve(address(this), amount), "Token approval failed");
         require(IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount));
 
         userTokenBalance[msg.sender][tokenAddress] += amount;
